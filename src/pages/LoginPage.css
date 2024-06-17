@@ -1,0 +1,12 @@
+.loginForm {
+    p {
+        margin-bottom: 5px;
+    }
+    input {
+        margin-right: 15px;
+    }
+}
+
+.invalidUsername {
+    color: red;
+}
