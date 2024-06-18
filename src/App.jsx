@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoginPage } from "./pages/LoginPage.jsx";
+import { HomePage } from "./pages/HomePage.jsx";
 
 function App() {
   const [currentUser, setCurrentUser] = useState();
@@ -8,11 +9,19 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route
-          path="/login"
+          path="/"
           element={
             <LoginPage
               currentUser={currentUser}
               setCurrentUser={setCurrentUser}
+            />
+          }
+        />
+        <Route
+          path="/homepage"
+          element={
+            <HomePage
+              currentUser={currentUser}
             />
           }
         />

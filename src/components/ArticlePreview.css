@@ -1,0 +1,30 @@
+.articlePreview {
+  background-color: white;
+  border-radius: 16px;
+  overflow: hidden;
+  width: 500px;
+  height: 250px;
+  display: flex;
+
+  img {
+    max-width: 100%;
+    object-fit: cover;
+    min-width: 0;
+    flex: 1 1 0;
+  }
+}
+
+.articlePreviewInfo {
+  padding: 16px;
+  flex: 1 1 0;
+  color: black;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  h3,
+  p {
+    margin: 0;
+  }
+}
