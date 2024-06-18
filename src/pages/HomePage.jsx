@@ -18,7 +18,7 @@ export const HomePage = ({ currentUser }) => {
   }, []);
 
   return (
-    <PageWrapper title="NCNews" currentUser={currentUser}>
+    <PageWrapper currentUser={currentUser}>
       {isLoading ? (
         <p>Loading...</p>
       ) : (

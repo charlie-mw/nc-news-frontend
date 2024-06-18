@@ -4,6 +4,7 @@ import "./ArticlePreview.css";
 export const ArticlePreview = ({
   article: { title, author, topic, comment_count, article_img_url, article_id },
 }) => {
+
   return (
     <article className="articlePreview">
       <div className="articlePreviewInfo">
