@@ -10,8 +10,8 @@ export const listUsers = () => {
   });
 };
 
-export const listArticles = () => {
-  return newsApi.get("/articles").then(({ data }) => {
+export const listArticles = (topic) => {
+  return newsApi.get("/articles", { params: { topic } }).then(({ data }) => {
     return data.articles;
   });
 };
@@ -19,5 +19,11 @@ export const listArticles = () => {
 export const getArticle = (articleId) => {
   return newsApi.get(`/articles/${articleId}`).then(({ data }) => {
     return data.article;
+  });
+};
+
+export const listTopics = () => {
+  return newsApi.get("/topics").then(({ data }) => {
+    return data.topics;
   });
 };
