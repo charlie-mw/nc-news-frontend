@@ -21,7 +21,7 @@ export const LoginPage = ({ currentUser, setCurrentUser }) => {
   }, []);
 
   return (
-    <PageWrapper title="NCNews" subtitle="Login" currentUser={currentUser}>
+    <PageWrapper subtitle="Login" currentUser={currentUser}>
       {isLoading ? (
         <p>Loading...</p>
       ) : (

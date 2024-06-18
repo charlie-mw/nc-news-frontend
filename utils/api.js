@@ -15,3 +15,9 @@ export const listArticles = () => {
     return data.articles;
   });
 };
+
+export const getArticle = (articleId) => {
+  return newsApi.get(`/articles/${articleId}`).then(({ data }) => {
+    return data.article;
+  });
+};

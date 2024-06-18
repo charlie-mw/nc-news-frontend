@@ -1,0 +1,38 @@
+.articlePage {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: start;
+  color: black;
+  background-color: white;
+  height: 100%;
+  padding: 15px 10vw;
+}
+
+.articleHeader {
+  overflow: hidden;
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+
+  img {
+    object-fit: cover;
+
+    max-height: 300px;
+    object-position: center;
+    flex-basis: 70%;
+  }
+}
+
+.articleInfo {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
+
+  h3,
+  p {
+    margin: 0;
+  }
+}
