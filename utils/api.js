@@ -6,7 +6,12 @@ const newsApi = axios.create({
 
 export const listUsers = () => {
   return newsApi.get("/users").then(({ data }) => {
-    console.log();
     return data.users;
+  });
+};
+
+export const listArticles = () => {
+  return newsApi.get("/articles").then(({ data }) => {
+    return data.articles;
   });
 };

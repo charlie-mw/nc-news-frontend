@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { listUsers } from "../../utils/api";
 import { PageWrapper } from "../components/PageWrapper";
+import { useNavigate } from "react-router-dom";
 import "./LoginPage.css";
 
 export const LoginPage = ({ currentUser, setCurrentUser }) => {
@@ -9,6 +10,8 @@ export const LoginPage = ({ currentUser, setCurrentUser }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isInvalid, setIsInvalid] = useState(false);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     setIsLoading(true);
     listUsers().then((users) => {
@@ -16,10 +19,6 @@ export const LoginPage = ({ currentUser, setCurrentUser }) => {
       setIsLoading(false);
     });
   }, []);
-
-  if (isLoading) {
-    return <p>Loading...</p>;
-  }
 
   return (
     <PageWrapper title="NCNews" subtitle="Login" currentUser={currentUser}>
@@ -37,7 +36,7 @@ export const LoginPage = ({ currentUser, setCurrentUser }) => {
             if (apiUser) {
               setCurrentUser(apiUser);
               setIsInvalid(false);
-              window.location = "/";
+              navigate("/homepage");
             } else {
               setIsInvalid(true);
             }

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./PageWrapper.css";
 
 export const PageWrapper = ({ title, subtitle, currentUser, children }) => (
@@ -5,7 +6,13 @@ export const PageWrapper = ({ title, subtitle, currentUser, children }) => (
     <div className="pageWrapperTitleSection">
       <h1>{title}</h1>
       <p className="pageWrapperCurrentUser">
-        {currentUser ? `You are logged in as: ${currentUser.username}` : `You are not logged in`}
+        {currentUser && `You are logged in as: ${currentUser.username}`}
+        {!currentUser && (
+          <>
+            {"You are not logged in: "}
+            <Link to="/login">Login</Link>
+          </>
+        )}
       </p>
     </div>
     {subtitle && <h2>{subtitle}</h2>}
