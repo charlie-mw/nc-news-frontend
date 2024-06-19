@@ -1,0 +1,47 @@
+.articleComment {
+  position: relative;
+  border: 2px solid #e2e2e2;
+  border-radius: 16px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  p {
+    margin: 0;
+  }
+
+  blockquote {
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+}
+
+.articleCommentDeleteButton {
+  position: absolute;
+  top:8px;
+  right: 8px;
+  border-radius: 8px;
+  background-color: transparent;
+  color: red;
+  border: 1px solid red;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding:0;
+  height: 28px;
+  width: 28px;
+}
+
+.articleCommentDeleteButton:disabled {
+  background-color: grey !important;
+  color: white;
+  border-color: transparent;
+}
+
+.articleCommentDeleteButton:hover {
+  background-color: red;
+  color: white;
+  border-color: transparent;
+}

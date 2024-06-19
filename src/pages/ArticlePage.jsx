@@ -1,25 +1,40 @@
 import { useEffect, useState } from "react";
-import { getArticle } from "../../utils/api";
+import { getArticle, getComments, deleteComment } from "../../utils/api";
 import { PageWrapper } from "../components/PageWrapper";
 import { useParams } from "react-router-dom";
 import "./ArticlePage.css";
+import { ArticleComment } from "../components/ArticleComment";
 
 export const ArticlePage = ({ currentUser }) => {
   const [article, setArticle] = useState();
-  const [commentList, setCommentList] = useState([]);
+  const [commentList, setCommentList] = useState();
   const [currentCommentText, setCurrentCommentText] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [commentBeingDeleted, setCommentBeingDeleted] = useState();
   const { articleId } = useParams();
 
   useEffect(() => {
-    setIsLoading(true);
     getArticle(articleId).then((article) => {
       setArticle(article);
-      setIsLoading(false);
+    });
+
+    getComments(articleId).then((comments) => {
+      setCommentList(comments);
     });
   }, [articleId]);
 
-  if (isLoading) {
+  const deleteUserComment = (comment) => {
+    setCommentBeingDeleted(comment.comment_id);
+
+    deleteComment(comment.comment_id).then(() =>
+      setCommentList((currentComments) =>
+        currentComments.filter(
+          ({ comment_id }) => comment_id !== comment.comment_id
+        )
+      )
+    );
+  };
+
+  if (!article) {
     return (
       <PageWrapper title={"NCNews"} currentUser={currentUser}>
         <p>Loading...</p>
@@ -44,6 +59,24 @@ export const ArticlePage = ({ currentUser }) => {
           <img src={article.article_img_url} alt={article.title} />
         </section>
         <section className="articleBody">{article.body}</section>
+        <section>
+          <h3>Comments</h3>
+          {!commentList ? (
+            <p>Loading comments...</p>
+          ) : (
+            <ol>
+              {commentList.map((comment) => (
+                <ArticleComment
+                  key={comment.comment_id}
+                  comment={comment}
+                  canDelete={comment.author === currentUser?.username}
+                  onDeleteClicked={() => deleteUserComment(comment)}
+                  isBeingDeleted={commentBeingDeleted === comment.comment_id}
+                />
+              ))}
+            </ol>
+          )}
+        </section>
       </div>
     </PageWrapper>
   );
