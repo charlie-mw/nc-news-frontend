@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
 import "./PageWrapper.css";
 
-export const PageWrapper = ({ subtitle, currentUser, children }) => (
+export const PageWrapper = ({ currentUser, children }) => (
   <article className="pageWrapper">
-    <div className="pageWrapperHeader">
       <div className="pageWrapperTitleSection">
-        <h1>NCNews</h1>
+        <Link to="/homepage">
+          <h1>NCNews</h1>
+        </Link>
         <p className="pageWrapperCurrentUser">
           {currentUser && `You are logged in as: ${currentUser.username}`}
           {!currentUser && (
@@ -16,8 +17,6 @@ export const PageWrapper = ({ subtitle, currentUser, children }) => (
           )}
         </p>
       </div>
-      {subtitle && <h2>{subtitle}</h2>}
-    </div>
     <div className="pageWrapperContent">{children}</div>
   </article>
 );

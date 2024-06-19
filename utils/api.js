@@ -27,3 +27,13 @@ export const listTopics = () => {
     return data.topics;
   });
 };
+
+export const getComments = (articleId) => {
+  return newsApi.get(`/articles/${articleId}/comments`).then(({ data }) => {
+    return data.comments;
+  });
+};
+
+export const deleteComment = (commentId) => {
+  return newsApi.delete(`/comments/${commentId}`);
+};

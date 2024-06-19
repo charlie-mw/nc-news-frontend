@@ -21,7 +21,7 @@ export const LoginPage = ({ currentUser, setCurrentUser }) => {
   }, []);
 
   return (
-    <PageWrapper subtitle="Login" currentUser={currentUser}>
+    <PageWrapper currentUser={currentUser}>
       {isLoading ? (
         <p>Loading...</p>
       ) : (
@@ -43,6 +43,7 @@ export const LoginPage = ({ currentUser, setCurrentUser }) => {
           }}
           className="loginForm"
         >
+          <h2>Login</h2>
           <label>
             <p>Username:</p>
             <input
@@ -50,7 +51,7 @@ export const LoginPage = ({ currentUser, setCurrentUser }) => {
               onChange={(event) => setUsernameText(event.target.value)}
             />
           </label>
-          <button>Login</button>
+          <button>submit</button>
           {isInvalid && (
             <p className="invalidUsername">The selected username is invalid!</p>
           )}
