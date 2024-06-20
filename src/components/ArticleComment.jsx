@@ -1,12 +1,16 @@
+import { useState } from "react";
 import "./ArticleComment.css";
 
-export const ArticleComment = ({
-  comment,
-  canDelete,
-  onDeleteClicked,
-  isBeingDeleted,
-}) => {
+export const ArticleComment = ({ comment, canDelete, deleteComment }) => {
   const commentDate = new Date(comment.created_at);
+  const [isDeleting, setIsDeleting] = useState(false);
+
+  const onDeleteClicked = () => {
+    setIsDeleting(true);
+    deleteComment(comment.comment_id).then(() => {
+      setIsDeleting(false);
+    });
+  };
 
   return (
     <li className="articleComment">
@@ -14,7 +18,7 @@ export const ArticleComment = ({
         <button
           className="articleCommentDeleteButton"
           onClick={onDeleteClicked}
-          disabled={isBeingDeleted}
+          disabled={isDeleting}
         >
           X
         </button>
