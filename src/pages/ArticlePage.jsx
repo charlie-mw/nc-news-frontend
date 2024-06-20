@@ -1,15 +1,21 @@
 import { useEffect, useState } from "react";
-import { getArticle, getComments, deleteComment } from "../../utils/api";
+import {
+  getArticle,
+  getComments,
+  deleteComment,
+  voteOnArticle,
+} from "../../utils/api";
 import { PageWrapper } from "../components/PageWrapper";
 import { useParams } from "react-router-dom";
 import "./ArticlePage.css";
 import { ArticleComment } from "../components/ArticleComment";
+import { ArticleVotes } from "../components/ArticleVotes";
 
 export const ArticlePage = ({ currentUser }) => {
   const [article, setArticle] = useState();
   const [commentList, setCommentList] = useState();
   const [currentCommentText, setCurrentCommentText] = useState("");
-  const [commentBeingDeleted, setCommentBeingDeleted] = useState();
+  const [isUpdating, setIsUpdating] = useState(false);
   const { articleId } = useParams();
 
   useEffect(() => {
@@ -22,16 +28,20 @@ export const ArticlePage = ({ currentUser }) => {
     });
   }, [articleId]);
 
-  const deleteUserComment = (comment) => {
-    setCommentBeingDeleted(comment.comment_id);
+  const addVote = () => {
+    setIsUpdating(true);
+    voteOnArticle(article.article_id, 1).then((updatedArticle) => {
+      setArticle(updatedArticle);
+      setIsUpdating(false);
+    });
+  };
 
-    deleteComment(comment.comment_id).then(() =>
+  const deleteUserComment = (commentId) => {
+    return deleteComment(commentId).then(() => {
       setCommentList((currentComments) =>
-        currentComments.filter(
-          ({ comment_id }) => comment_id !== comment.comment_id
-        )
-      )
-    );
+        currentComments.filter(({ comment_id }) => comment_id !== commentId)
+      );
+    });
   };
 
   if (!article) {
@@ -61,8 +71,15 @@ export const ArticlePage = ({ currentUser }) => {
         <section className="articleBody">{article.body}</section>
         <section>
           <h3>Comments</h3>
+          <ArticleVotes
+            currentVotes={article.votes}
+            onVotesClicked={addVote}
+            disabled={isUpdating || currentUser === undefined}
+          />
           {!commentList ? (
             <p>Loading comments...</p>
+          ) : commentList.length === 0 ? (
+            <p>There are no comments to show - be the first to comment!</p>
           ) : (
             <ol>
               {commentList.map((comment) => (
@@ -70,8 +87,7 @@ export const ArticlePage = ({ currentUser }) => {
                   key={comment.comment_id}
                   comment={comment}
                   canDelete={comment.author === currentUser?.username}
-                  onDeleteClicked={() => deleteUserComment(comment)}
-                  isBeingDeleted={commentBeingDeleted === comment.comment_id}
+                  deleteComment={deleteUserComment}
                 />
               ))}
             </ol>

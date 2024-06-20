@@ -37,3 +37,13 @@ export const getComments = (articleId) => {
 export const deleteComment = (commentId) => {
   return newsApi.delete(`/comments/${commentId}`);
 };
+
+export const voteOnArticle = (articleId, votesToAdd) => {
+  return newsApi
+    .patch(`/articles/${articleId}`, {
+      inc_votes: votesToAdd,
+    })
+    .then(({ data }) => {
+      return data.article;
+    });
+};
