@@ -4,6 +4,7 @@ import {
   getComments,
   deleteComment,
   voteOnArticle,
+  postComment,
 } from "../../utils/api";
 import { PageWrapper } from "../components/PageWrapper";
 import { useParams } from "react-router-dom";
@@ -28,9 +29,14 @@ export const ArticlePage = ({ currentUser }) => {
     });
   }, [articleId]);
 
-  const addVote = () => {
+  const updateVotes = (voteCount) => {
     setIsUpdating(true);
-    voteOnArticle(article.article_id, 1).then((updatedArticle) => {
+    setArticle((currentArticle) => ({
+      ...currentArticle,
+      votes: currentArticle.votes + voteCount,
+    }));
+
+    voteOnArticle(article.article_id, voteCount).then((updatedArticle) => {
       setArticle(updatedArticle);
       setIsUpdating(false);
     });
@@ -42,6 +48,21 @@ export const ArticlePage = ({ currentUser }) => {
         currentComments.filter(({ comment_id }) => comment_id !== commentId)
       );
     });
+  };
+
+  const postUserComment = (event) => {
+    event.preventDefault();
+
+    if (currentCommentText.length !== 0 && currentUser) {
+      postComment(
+        article.article_id,
+        currentCommentText,
+        currentUser.username
+      ).then((newComment) => {
+        setCommentList((currentComments) => [newComment, ...currentComments]);
+        setCurrentCommentText("");
+      });
+    }
   };
 
   if (!article) {
@@ -69,13 +90,33 @@ export const ArticlePage = ({ currentUser }) => {
           <img src={article.article_img_url} alt={article.title} />
         </section>
         <section className="articleBody">{article.body}</section>
-        <section>
-          <h3>Comments</h3>
+        <section className="articleVotesSection">
+          <h3>Vote on this article</h3>
           <ArticleVotes
             currentVotes={article.votes}
-            onVotesClicked={addVote}
+            onVoteClicked={updateVotes}
             disabled={isUpdating || currentUser === undefined}
           />
+        </section>
+        <section className="articlePageCommentSection">
+          <h3>Comments</h3>
+          <form className="articlePageCommentForm" onSubmit={postUserComment}>
+            <label htmlFor="comment-input">Add a comment:</label>
+            <div className="articlePageCommentInputWrapper">
+              <textarea
+                id="comment-input"
+                required
+                placeholder="Type your comment here..."
+                value={currentCommentText}
+                onChange={(event) => setCurrentCommentText(event.target.value)}
+              />
+              <button
+                disabled={currentCommentText.length === 0 || !currentUser}
+              >
+                {currentUser ? "Submit" : "Log in to comment"}
+              </button>
+            </div>
+          </form>
           {!commentList ? (
             <p>Loading comments...</p>
           ) : commentList.length === 0 ? (

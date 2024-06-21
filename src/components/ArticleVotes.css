@@ -1,0 +1,31 @@
+.articleVotes {
+    border: 2px solid #e2e2e2;
+    border-radius: 16px;
+    padding: 8px;
+    display: flex;
+    gap: 8px;
+    align-items: center;
+
+    button {
+        padding: 0;
+        width: 25px;
+        height: 25px;
+    }
+
+}
+
+.articleVotesUpvote { 
+    background-color: #3eda3e;
+}
+
+.articleVotesUpvote:disabled {
+    background-color: #277927;
+}
+
+.articleVotesDownvote {
+    background-color: #da3e3e;
+}
+
+.articleVotesDownvote:disabled {
+    background-color: #792727;
+}

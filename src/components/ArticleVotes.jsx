@@ -1,11 +1,22 @@
-export const ArticleVotes = ({ currentVotes, onVotesClicked, disabled }) => {
+import "./ArticleVotes.css";
+export const ArticleVotes = ({ currentVotes, onVoteClicked, disabled }) => {
   return (
-    <button
-      className="articleVotes"
-      onClick={onVotesClicked}
-      disabled={disabled}
-    >
-      Current votes = {currentVotes}
-    </button>
+    <div className="articleVotes">
+      <p>Current votes: {currentVotes}</p>
+      <button
+        className="articleVotesUpvote"
+        onClick={() => onVoteClicked(1)}
+        disabled={disabled}
+      >
+        ＋
+      </button>
+      <button
+        className="articleVotesDownvote"
+        onClick={() => onVoteClicked(-1)}
+        disabled={disabled}
+      >
+        ﹣
+      </button>
+    </div>
   );
 };
