@@ -3,7 +3,6 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { LoginPage } from "./pages/LoginPage.jsx";
 import { HomePage } from "./pages/HomePage.jsx";
 import { ArticlePage } from "./pages/ArticlePage.jsx";
-import { PageWrapper } from "./components/PageWrapper.jsx";
 import { NotFoundPage } from "./pages/NotFoundPage.jsx";
 
 function App() {
