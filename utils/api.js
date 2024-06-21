@@ -47,3 +47,11 @@ export const voteOnArticle = (articleId, votesToAdd) => {
       return data.article;
     });
 };
+
+export const postComment = (articleId, body, username) => {
+  return newsApi
+    .post(`/articles/${articleId}/comments`, { body, username })
+    .then(({ data }) => {
+      return data.comment;
+    });
+};
