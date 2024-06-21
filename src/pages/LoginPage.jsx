@@ -25,37 +25,49 @@ export const LoginPage = ({ currentUser, setCurrentUser }) => {
       {isLoading ? (
         <p>Loading...</p>
       ) : (
-        <form
-          onSubmit={(event) => {
-            event.preventDefault();
+        <>
+          <form
+            onSubmit={(event) => {
+              event.preventDefault();
 
-            const apiUser = userList.find(
-              ({ username }) => username === usernameText
-            );
+              const apiUser = userList.find(
+                ({ username }) => username === usernameText
+              );
 
-            if (apiUser) {
-              setCurrentUser(apiUser);
-              setIsInvalid(false);
-              navigate("/homepage");
-            } else {
-              setIsInvalid(true);
-            }
-          }}
-          className="loginForm"
-        >
-          <h2>Login</h2>
-          <label>
-            <p>Username:</p>
-            <input
-              value={usernameText}
-              onChange={(event) => setUsernameText(event.target.value)}
-            />
-          </label>
-          <button>submit</button>
-          {isInvalid && (
-            <p className="invalidUsername">The selected username is invalid!</p>
-          )}
-        </form>
+              if (apiUser) {
+                setCurrentUser(apiUser);
+                setIsInvalid(false);
+                navigate("/homepage");
+              } else {
+                setIsInvalid(true);
+              }
+            }}
+            className="loginForm"
+          >
+            <h2>Login</h2>
+            <label>
+              <p>Username:</p>
+              <input
+                value={usernameText}
+                onChange={(event) => setUsernameText(event.target.value)}
+              />
+            </label>
+            <button>submit</button>
+            {isInvalid && (
+              <p className="invalidUsername">
+                The selected username is invalid!
+              </p>
+            )}
+          </form>
+          <section className="loginUsernameHintSection">
+            <p>Valid usernames (for debugging)</p>
+            <ul>
+              {userList.map(({ username }) => (
+                <li key={username}>{username}</li>
+              ))}
+            </ul>
+          </section>
+        </>
       )}
     </PageWrapper>
   );
