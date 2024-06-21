@@ -5,6 +5,21 @@
   gap: 12px;
 }
 
+.articleFilterSection {
+  display: flex;
+  gap: 16px;
+
+  label {
+    display: flex;
+    gap: 8px;
+  }
+
+  select {
+    font-size: inherit;
+    font-family: inherit;
+  }
+}
+
 .articleList {
   display: flex;
   flex-wrap: wrap;

@@ -10,8 +10,8 @@ export const listUsers = () => {
   });
 };
 
-export const listArticles = (topic) => {
-  return newsApi.get("/articles", { params: { topic } }).then(({ data }) => {
+export const listArticles = (topic, sortField, sortDirection) => {
+  return newsApi.get("/articles", { params: { topic, sort_by:sortField, order: sortDirection } }).then(({ data }) => {
     return data.articles;
   });
 };

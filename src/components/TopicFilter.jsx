@@ -7,6 +7,9 @@ export const TopicFilter = ({ selectedTopic, setSelectedTopic }) => {
 
   useEffect(() => {
     listTopics().then((topicList) => {
+      if (!topicList.some(({ slug }) => slug === selectedTopic)) {
+        setSelectedTopic(undefined);
+      }
       setTopicList(topicList);
     });
   }, []);

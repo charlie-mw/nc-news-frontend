@@ -1,11 +1,11 @@
 .loginForm {
   p {
-    margin-bottom: 5px;
+    margin: 0;
   }
   input {
     margin-right: 15px;
     background-color: white;
-    color:black;
+    color: black;
   }
 
   align-self: center;
@@ -22,4 +22,11 @@
 
 .invalidUsername {
   color: red;
+}
+
+.loginUsernameHintSection {
+  align-self: center;
+  margin-top: 20px;
+  color: grey;
+  font-style: italic;
 }
